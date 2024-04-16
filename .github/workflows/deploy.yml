@@ -2,7 +2,7 @@ name: AWS Lambda Deploy
 on:
   push:
     branches:
-      - master  # 'master'は非推奨になり、'main'が一般的に使用されるようになっています。
+      - main  # 'master'は非推奨になり、'main'が一般的に使用されるようになっています。
 
 jobs:
   deploy:
