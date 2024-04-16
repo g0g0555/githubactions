@@ -2,7 +2,8 @@ name: AWS Lambda Deploy
 on:
   push:
     branches:
-      - main
+      - master  # 'master'は非推奨になり、'main'が一般的に使用されるようになっています。
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: configure-aws-credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1  # 'master'を参照するのは避け、リリースバージョンを使用してください。
         with:
           aws-region: ${{ secrets.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
@@ -25,12 +26,13 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: setup-python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4  # 最新のリリースに更新
         with:
-          python-version: '3.x'
+          python-version: '3.x'  # Pythonの特定のバージョンを指定することもできます。例えば '3.9'
 
       - name: lambda update
         run: |
-          pip3 install awscli
+          pip install awscli  # pip3ではなくpipを使用し、明示的なバージョン指定が望ましいです。
           cd lambda && zip -r package.zip ./*
           aws lambda update-function-code --function-name test-http --zip-file fileb://package.zip --publish
+
