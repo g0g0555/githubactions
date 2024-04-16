@@ -34,5 +34,5 @@ jobs:
         run: |
           pip install awscli  # pip3ではなくpipを使用し、明示的なバージョン指定が望ましいです。
           cd lambda && zip -r package.zip ./*
-          aws lambda update-function-code --function-name test-http --zip-file fileb://package.zip --publish
+          aws lambda update-function-code --function-name github-actions-test --zip-file fileb://package.zip --publish
 
